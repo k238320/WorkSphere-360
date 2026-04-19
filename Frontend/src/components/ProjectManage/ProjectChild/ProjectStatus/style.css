@@ -1,0 +1,13 @@
+.custom-editor .ck-editor__editable_inline {
+    min-width: 100%;
+    min-height: 300px; /* Set the desired minimum height */
+}
+
+.custom-editor ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.custom-editor li {
+    margin: 5px 0;
+}

@@ -1,0 +1,108 @@
+.css-ykn06b-MuiPopper-root-MuiTooltip-popper {
+    z-index: 40;
+}
+.css-meewf5-MuiPaper-root-MuiTableContainer-root {
+    max-height: 300px;
+    overflow-x: hidden;
+}
+
+.css-td8fau-MuiTableRow-root:last-child td,
+.css-td8fau-MuiTableRow-root:last-child th {
+    width: 1px;
+}
+
+.css-zow5z4-MuiGrid-root > .MuiGrid-item {
+    min-height: 0vh;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.inovua-react-toolkit-text-input.InovuaReactDataGrid__column-header__filter.InovuaReactDataGrid__column-header__filter--string.inovua-react-toolkit-text-input--ltr.inovua-react-toolkit-text-input--theme-default-light.inovua-react-toolkit-text-input--enable-clear-button::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url('https://cdn-icons-png.flaticon.com/128/54/54481.png') center/contain no-repeat;
+    /* opacity: 1;
+    visibility: visible; */
+    margin-left: 8px;
+}
+
+.InovuaReactDataGrid--theme-default-light .InovuaReactDataGrid__cell:not(.InovuaReactDataGrid__cell--no-padding),
+.InovuaReactDataGrid--theme-default-light .InovuaReactDataGrid__column-header__content
+/* .InovuaReactDataGrid--theme-default-light .InovuaReactDataGrid__footer-row-cell,
+.InovuaReactDataGrid--theme-default-light .InovuaReactDataGrid__header-group__title,
+.InovuaReactDataGrid--theme-default-light .InovuaReactDataGrid__locked-row-cell,
+.InovuaReactDataGrid--theme-default-light .InovuaReactDataGrid__nested-cell,
+.InovuaReactDataGrid--theme-default-light .InovuaReactDataGrid__nested-group-cell  */ {
+    min-height: 20px !important;
+}
+
+td.MuiTableCell-root.MuiTableCell-body.MuiTableCell-alignCenter.MuiTableCell-sizeMedium.css-1aa4ure-MuiTableCell-root {
+    padding: 8px 16px;
+}
+
+.css-8s6r2w-MuiTableCell-root {
+    padding: 8px 16px;
+}
+
+.fc-scrollgrid-sync-table tbody tr:nth-child(1) {
+    height: 50px;
+}
+
+.fc-scrollgrid-sync-table tbody tr td.fc-cell-shaded {
+    height: 51px;
+}
+/* .fc-scrollgrid-sync-table tbody tr td.fc-resource-timeline.fc-resource-group { */
+/* .fc-scrollgrid-sync-table tbody tr td.fc-resource-timeline.fc-resource-group {
+    height: 50px;
+} */
+
+/* .fc-resource-timeline.fc-resource-group:not([rowspan]) {
+    height: 50px;
+} */
+
+.InovuaReactDataGrid--theme-default-light .InovuaReactDataGrid__column-header--show-border-left,
+.InovuaReactDataGrid--theme-default-light .InovuaReactDataGrid__column-header__resize-wrapper--show-border-left,
+.InovuaReactDataGrid--theme-default-light .InovuaReactDataGrid__header-group__title--show-border-left {
+    border-left: 1px solid rgba(228, 227, 226, 0.5) !important;
+    border-bottom: 1px solid rgba(228, 227, 226, 0.5) !important;
+}
+
+.leaveStyle {
+    background-color: #f27e9b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    border-radius: 2px;
+    width: 42px;
+    height: 49px;
+}
+
+.remove-link {
+    color: #fff;
+    border: none !important;
+    text-decoration: none !important;
+    outline: none !important;
+    border-bottom: 1px solid transparent !important;
+}
+
+.InovuaReactDataGrid--theme-default-light .InovuaReactDataGrid__column-header__filter-wrapper .InovuaReactDataGrid__column-header__filter {
+    font-size: 12px;
+    max-height: 26px;
+    font-family: 'Roboto', 'sans-serif', 'Times', 'serif' !important;
+}
+
+.css-djv17c-MuiButtonBase-root-MuiIconButton-root-MuiClock-amButton span:nth-child(1) {
+    color: #fff !important;
+}
+.css-djv17c-MuiButtonBase-root-MuiIconButton-root-MuiClock-amButton:hover span:nth-child(1) {
+    color: #000 !important;
+}
+.css-1wgmo7l-MuiButtonBase-root-MuiIconButton-root-MuiClock-pmButton span:nth-child(1) {
+    color: #fff !important;
+}
+.css-1wgmo7l-MuiButtonBase-root-MuiIconButton-root-MuiClock-pmButton:hover span:nth-child(1) {
+    color: #000 !important;
+}

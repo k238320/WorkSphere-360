@@ -1,0 +1,53 @@
+/* Add this CSS to your stylesheet */
+.react-time-picker__wrapper {
+    display: inline-block;
+    position: relative;
+  }
+  
+  .react-time-picker__inputGroup {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px;
+  }
+  
+  .react-time-picker__inputGroup__input {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 4px;
+    width: 60px; /* Adjust the width as needed */
+  }
+  
+  .react-time-picker__inputGroup__input:focus {
+    border: 1px solid #007bff;
+  }
+  
+  .react-time-picker__clock {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .react-time-picker__clockButton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    margin: 4px;
+  }
+  
+  .react-time-picker__clockButton:hover {
+    background-color: #0056b3;
+  }
+  

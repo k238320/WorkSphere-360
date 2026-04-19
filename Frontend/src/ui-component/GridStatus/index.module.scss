@@ -1,0 +1,17 @@
+.status__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // flex-direction: column;
+    gap: 0.5em;
+
+    img {
+        // width: 22px;
+        width: 14px;
+        aspect-ratio: 1;
+    }
+
+    span {
+        font-weight: 500;
+    }
+}

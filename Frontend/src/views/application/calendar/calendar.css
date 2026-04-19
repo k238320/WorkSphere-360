@@ -1,0 +1,63 @@
+/* Highlight the current date header */
+.fc-day-today {
+    /* background-color: #f1f1f1; You can use any color you prefer */
+    /* background-color: #cbc3e3; You can use any color you prefer */
+    /* color: #fff; */
+    /* background-color: rgba(241, 241, 241, 0.5); You can use any color you prefer */
+    /* background-color: #f1f1f1; */
+    background-color: #cdcdcd;
+    color: #000;
+}
+
+/* Highlight the current date events */
+.fc-today {
+    /* background-color: #a6a4a0;
+    border: 1px solid #a6a4a0; */
+    color: #000;
+}
+.fc-day-sat {
+    /* background-color: #f1f1f1; You can use any color you prefer */
+    background-color: rgba(241, 241, 241, 0.5); /* You can use any color you prefer*/
+    color: #000;
+}
+.fc-day-sun {
+    /* background-color: #f1f1f1; You can use any color you prefer */
+    background-color: rgba(241, 241, 241, 0.5);
+    color: #000;
+}
+/* HERE IS THE CALENDER CHANGES */
+.css-1r9vi8p .fc-h-event .fc-event-main {
+    overflow: hidden;
+    padding: 0;
+}
+
+.fc-timeline-event-harness {
+    top: 0 !important;
+}
+.fc-timeline-lane-frame {
+    height: 50px !important;
+}
+.fc-datagrid-cell-frame {
+    height: 50px !important;
+
+    display: flex;
+    align-items: center;
+}
+
+.fc-timeline-lane .fc-resource {
+    /* height: 100px !important; */
+}
+.fc-timeline-event {
+    padding: 0;
+}
+
+.fc-timeline-slot-frame {
+    height: 50px !important;
+}
+
+.fc-datagrid-cell.fc-resource[role='gridcell'] {
+    font-size: 12px;
+}
+.fc-datagrid-cell.fc-resource-group.fc-cell-shaded {
+    font-weight: bold;
+}

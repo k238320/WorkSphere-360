@@ -1,0 +1,957 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// User Permisssions
+model user {
+  id                     String                   @id @default(auto()) @map("_id") @db.ObjectId
+  name                   String
+  role_id                String?                  @unique @db.ObjectId
+  super                  Boolean?                 @default(false)
+  email                  String                   @unique
+  password               String
+  picture                String?
+  designation            String?
+  employement_code       String?                  @unique
+  employement_code_dxb   String?                  @unique
+  role_mapping           role_mapping[]
+  project_permissions    project_permissions[]
+  role                   roles?                   @relation(fields: [role_id], references: [id])
+  created_at             DateTime?                @default(now())
+  updated_at             DateTime?                @updatedAt
+  status                 Boolean?                 @default(true)
+  screenshot             Boolean?                 @default(false)
+  screenshot_time        String                   @default("15")
+  timeout_time           String                   @default("15")
+  reset_token            String?
+  reset_token_expires    DateTime?
+  resource_id            String?                  @db.ObjectId
+  app_session_token      String?
+  app_verification_token String?
+  token_expiration       DateTime?                @default(now())
+  resource               resource?                @relation(fields: [resource_id], references: [id])
+  task_permission        task_permission[]
+  emp_attendance         emp_attendance[]
+  user_details           user_details[]
+  user_docs              user_docs[]
+  assigned_asset         assigned_asset[]
+  emp_leaves             emp_leaves[]
+  asset_complaint        asset_complaint[]
+  YearlyLeaveRecord      YearlyLeaveRecord[]
+  extra_hours            extra_hours[]
+  emp_activities         emp_activities[]
+  UserApps               UserApps[]
+  payslip                payslip[]
+  resignation            resignation[]
+  AttendanceWarningsSent AttendanceWarningsSent[]
+}
+
+model roles {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  role_mapping role_mapping[]
+  created_at   DateTime?      @default(now())
+  updated_at   DateTime?      @updatedAt
+  status       Boolean?       @default(true)
+  screens      Json?
+  user         user?
+}
+
+model modules {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  role_mapping role_mapping[]
+  created_at   DateTime?      @default(now())
+  updated_at   DateTime?      @updatedAt
+  status       Boolean?       @default(true)
+}
+
+model permission {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  role_mapping role_mapping[]
+  created_at   DateTime?      @default(now())
+  updated_at   DateTime?      @updatedAt
+  status       Boolean?       @default(true)
+}
+
+model role_mapping {
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  role_id       String     @unique @db.ObjectId
+  role          roles      @relation(fields: [role_id], references: [id], onDelete: Cascade)
+  permission_id String     @db.ObjectId
+  permission    permission @relation(fields: [permission_id], references: [id], onDelete: Cascade)
+  module_id     String     @db.ObjectId
+  modules       modules?   @relation(fields: [module_id], references: [id], onDelete: Cascade)
+  user          user       @relation(fields: [role_id], references: [role_id])
+  created_at    DateTime?  @default(now())
+  updated_at    DateTime?  @updatedAt
+  status        Boolean?   @default(true)
+}
+
+model screens {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  child      String
+  route      String
+  status     Boolean?  @default(true)
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+}
+
+// Project
+model project {
+  id                       String                   @id @default(auto()) @map("_id") @db.ObjectId
+  name                     String
+  signed_document          String
+  commercial_proposal      String?
+  technical_proposal       String?
+  mou_document             String?
+  no_of_weeks              Int
+  specific_timeline        String
+  additional_documents     String?
+  brief_commitments        String
+  dicsounted_cost          Int
+  reason                   String
+  kickoff_date             String?
+  project_plan             String?
+  project_srs              String?
+  status_report            String?
+  project_website          String?
+  project_categories       Json?
+  project_technology       Json?
+  project_industry         Json?
+  project_hours            project_hours[]
+  project_milestone        project_milestone[]
+  weekly_status            weekly_status[]
+  // project_permissions     project_permissions?     @relation(fields: [id], references: [project_id])
+  project_status           project_status[]
+  client_details           client_details[]
+  created_at               DateTime?                @default(now())
+  updated_at               DateTime?                @updatedAt
+  status                   Boolean?                 @default(true)
+  task                     task[]
+  project_manager_details  Json?
+  project_consumed_hours   project_consumed_hours[]
+  pm_status                pm_status?
+  go_live_date             String?
+  project_win_date         DateTime?
+  projectDivisionId        String?                  @db.ObjectId
+  projectDivision          ProjectDivision?         @relation("DivisionProjects", fields: [projectDivisionId], references: [id])
+  project_contract_type    project_contract_type?   @relation("project_contract_type", fields: [project_contract_type_id], references: [id])
+  project_contract_type_id String?                  @db.ObjectId
+  production_capacity      production_capacity[]
+}
+
+// Category 
+model category {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+  status     Boolean?  @default(true)
+}
+
+// technology
+model technology {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+  status     Boolean?  @default(true)
+}
+
+// industry
+model industry {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+  status     Boolean?  @default(true)
+}
+
+// Project Hours
+model project_hours {
+  id                       String                 @id @default(auto()) @map("_id") @db.ObjectId
+  modified_date            String
+  department_id            String                 @db.ObjectId
+  department               department             @relation(fields: [department_id], references: [id])
+  project_catgory_hours_id String                 @db.ObjectId
+  project_category_hours   project_category_hours @relation(fields: [project_catgory_hours_id], references: [id])
+  project_id               String                 @db.ObjectId
+  project                  project                @relation(fields: [project_id], references: [id])
+  no_of_resources          Int?
+  hours                    Int
+  role_id                  String                 @db.ObjectId
+  created_at               DateTime?              @default(now())
+  updated_at               DateTime?              @updatedAt
+  status                   Boolean?               @default(true)
+}
+
+//project_category_hours
+model project_category_hours {
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  project_hours project_hours[]
+  created_at    DateTime?       @default(now())
+  updated_at    DateTime?       @updatedAt
+  status        Boolean?        @default(true)
+}
+
+// department
+model department {
+  id                     String                   @id @default(auto()) @map("_id") @db.ObjectId
+  name                   String
+  project_hours          project_hours[]
+  cost                   cost[]
+  created_at             DateTime?                @default(now())
+  updated_at             DateTime?                @updatedAt
+  resource               resource[]
+  status                 Boolean?                 @default(true)
+  project_consumed_hours project_consumed_hours[]
+  allocation             allocation[]
+  production_capacity    production_capacity[]
+}
+
+// Project Milestone
+model project_milestone {
+  id                    String              @id @default(auto()) @map("_id") @db.ObjectId
+  project_id            String              @db.ObjectId
+  project               project?            @relation(fields: [project_id], references: [id])
+  milestone_phase_id    String              @db.ObjectId
+  milestone_phase       milestone_phase     @relation(fields: [milestone_phase_id], references: [id])
+  milestone_payment     Int
+  targeted_month        String?
+  delay_time            String?
+  milestone             Json?
+  onhold                Json?
+  role_id               String
+  user_id               String
+  invoice               Boolean?
+  invoice_date          String?
+  payment_recieved      Boolean?
+  payment_recieved_date String?
+  is_upsell             Boolean             @default(false)
+  is_initial_amount     Boolean             @default(false)
+  document              String?
+  created_at            DateTime?           @default(now())
+  updated_at            DateTime?           @updatedAt
+  status                Boolean?            @default(true)
+  milestone_comment     milestone_comment[]
+}
+
+model milestone_comment {
+  id           String            @id @default(auto()) @map("_id") @db.ObjectId
+  milestone_id String            @db.ObjectId
+  milestone    project_milestone @relation(fields: [milestone_id], references: [id])
+  user_id      String?           @db.ObjectId
+  comment      String
+  created_at   DateTime          @default(now())
+  updated_at   DateTime?         @updatedAt
+  status       Boolean?          @default(true)
+}
+
+// MilestonePhase
+model milestone_phase {
+  id                String              @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  project_milestone project_milestone[]
+  created_at        DateTime?           @default(now())
+  updated_at        DateTime?           @updatedAt
+  status            Boolean?            @default(true)
+}
+
+// WeeklyStatus
+model weekly_status {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  project_id String    @db.ObjectId
+  project    project   @relation(fields: [project_id], references: [id])
+  commet     String
+  user_id    String    @db.ObjectId
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+  status     Boolean?  @default(true)
+}
+
+// Project Permission 
+model project_permissions {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  user_id    String    @db.ObjectId
+  user       user      @relation(fields: [user_id], references: [id])
+  project_id String?   @unique @db.ObjectId
+  is_sale    Boolean   @default(false)
+  is_pm      Boolean   @default(false)
+  // project    project[]
+  super      Boolean
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+  status     Boolean?  @default(true)
+}
+
+// project_status
+model project_status {
+  id                         String                   @id @default(auto()) @map("_id") @db.ObjectId
+  project_id                 String?                  @db.ObjectId
+  project                    project?                 @relation(fields: [project_id], references: [id])
+  porject_statuses_id        String                   @db.ObjectId
+  project_statuses           project_statuses?        @relation(fields: [porject_statuses_id], references: [id])
+  project_status_category_id String                   @db.ObjectId
+  project_status_category    project_status_category? @relation(fields: [project_status_category_id], references: [id])
+  user_id                    String                   @db.ObjectId
+  days_delayed               Int?
+  comment                    String
+  created_at                 DateTime?                @default(now())
+  updated_at                 DateTime?                @updatedAt
+  status                     Boolean?                 @default(true)
+}
+
+// Project Statuses
+model project_statuses {
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  project_status project_status[]
+  created_at     DateTime?        @default(now())
+  updated_at     DateTime?        @updatedAt
+  status         Boolean?         @default(true)
+}
+
+// ProjectStatusCategory
+model project_status_category {
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  project_status project_status[]
+  created_at     DateTime?        @default(now())
+  updated_at     DateTime?        @updatedAt
+  status         Boolean?         @default(true)
+}
+
+// Cost
+
+model cost {
+  id                   String     @id @default(auto()) @map("_id") @db.ObjectId
+  department_wise_cost Int
+  start_date           DateTime
+  department_id        String     @db.ObjectId
+  department           department @relation(fields: [department_id], references: [id])
+  created_at           DateTime?  @default(now())
+  updated_at           DateTime?  @updatedAt
+  status               Boolean?   @default(true)
+}
+
+// client details
+model client_details {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  project_id  String    @db.ObjectId
+  project     project   @relation(fields: [project_id], references: [id])
+  name        String
+  designation String?
+  number      String
+  email       String
+  role_id     String
+  status      Boolean?  @default(true)
+  created_at  DateTime? @default(now())
+  updated_at  DateTime? @updatedAt
+}
+
+model designation {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  name      String // Senior, Mid, Junior, Intern
+  resources resource[]
+}
+
+model capacity {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  value     Float // e.g. 0.8 for 80%
+  resources resource[]
+}
+
+model rate {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  value     Float // e.g. 50 (per hour)
+  resources resource[]
+}
+
+// resource   
+model resource {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  status       Boolean? @default(true)
+  is_team_lead Boolean? @default(false)
+
+  designation_id String?      @db.ObjectId
+  designation    designation? @relation(fields: [designation_id], references: [id])
+
+  capacity_id String?   @db.ObjectId
+  capacity    capacity? @relation(fields: [capacity_id], references: [id])
+
+  rate_id String? @db.ObjectId
+  rate    rate?   @relation(fields: [rate_id], references: [id])
+
+  department_id       String                @db.ObjectId
+  department          department?           @relation(fields: [department_id], references: [id])
+  show_in_calendar    Boolean?              @default(true)
+  is_atl              Boolean               @default(false)
+  created_at          DateTime?             @default(now())
+  updated_at          DateTime?             @updatedAt
+  allocation          allocation[]
+  per_date_allocation per_date_allocation[]
+  user                user[]
+  emp_leaves          emp_leaves[]
+}
+
+model task_category {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  status     Boolean?  @default(true)
+  task       task[]
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+}
+
+model task_status {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  task       task[]
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+}
+
+// model task {
+//   id               String        @id @default(auto()) @map("_id") @db.ObjectId
+//   department_id    String        @db.ObjectId
+//   department       department?   @relation(fields: [department_id], references: [id])
+//   project_id       String        @db.ObjectId
+//   project          project?      @relation(fields: [project_id], references: [id])
+//   task_category_id String        @db.ObjectId
+//   task_category    task_category @relation(fields: [task_category_id], references: [id])
+//   name             String
+//   url              String
+//   start_date       DateTime
+//   end_date         DateTime
+//   task_hours       Int
+//   resource         resource?     @relation(fields: [resource_id], references: [id])
+//   resource_id      String?       @db.ObjectId
+//   task_status_id   String        @db.ObjectId
+//   task_status      task_status?  @relation(fields: [task_status_id], references: [id])
+//   status           Boolean?      @default(true)
+//   created_at       DateTime?     @default(now())
+//   updated_at       DateTime?     @updatedAt
+// }
+
+model task {
+  id                     String            @id @default(auto()) @map("_id") @db.ObjectId
+  project_id             String            @db.ObjectId
+  project                project           @relation(fields: [project_id], references: [id])
+  task_category_id       String            @db.ObjectId
+  task_category          task_category     @relation(fields: [task_category_id], references: [id])
+  name                   String
+  department             Json
+  completion_date        DateTime
+  actual_completion_date DateTime?
+  attachment             String
+  description            String
+  task_status_id         String?           @db.ObjectId
+  task_status            task_status?      @relation(fields: [task_status_id], references: [id])
+  status                 Boolean?          @default(true)
+  created_at             DateTime?         @default(now())
+  updated_at             DateTime?         @updatedAt
+  comments               Json?
+  allocation             allocation[]
+  task_permission        task_permission[]
+}
+
+model per_date_allocation {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  allocation_id String?     @db.ObjectId
+  allocation    allocation? @relation(fields: [allocation_id], references: [id])
+  resource_id   String?     @db.ObjectId
+  resource      resource?   @relation(fields: [resource_id], references: [id])
+  date          DateTime
+  status        Boolean?    @default(true)
+  task_hours    Int?
+  is_leave      Boolean?    @default(false)
+  is_holiday    Boolean     @default(false)
+}
+
+model allocation {
+  id                      String                    @id @default(auto()) @map("_id") @db.ObjectId
+  task_id                 String?                   @db.ObjectId
+  task                    task?                     @relation(fields: [task_id], references: [id])
+  resource_id             String                    @db.ObjectId
+  resource                resource                  @relation(fields: [resource_id], references: [id])
+  start_date              DateTime
+  end_date                DateTime
+  task_hours              Int
+  department_id           String?                   @db.ObjectId
+  department              department?               @relation(fields: [department_id], references: [id])
+  disable                 Boolean?
+  reason                  String?
+  is_completed            Boolean?                  @default(false)
+  is_overtime             Boolean?                  @default(false)
+  overtime_reason         String?
+  status                  Boolean?                  @default(true)
+  created_at              DateTime?                 @default(now())
+  updated_at              DateTime?                 @updatedAt
+  per_date_allocation     per_date_allocation[]
+  disable_start_date      DateTime?
+  disable_end_date        DateTime?
+  allocation_hold_history allocation_hold_history[]
+}
+
+model allocation_hold_history {
+  id              String     @id @default(auto()) @map("_id") @db.ObjectId
+  allocation_id   String     @db.ObjectId
+  allocation      allocation @relation(fields: [allocation_id], references: [id])
+  hold_start_date DateTime
+  hold_end_date   DateTime
+  reason          String?
+  created_at      DateTime   @default(now())
+}
+
+model task_permission {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  task_id    String?   @db.ObjectId
+  task       task?     @relation(fields: [task_id], references: [id])
+  user_id    String    @db.ObjectId
+  user       user      @relation(fields: [user_id], references: [id])
+  super      Boolean
+  status     Boolean?  @default(true)
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+}
+
+// Project Consumed Hours
+model project_consumed_hours {
+  id             String     @id @default(auto()) @map("_id") @db.ObjectId
+  department_id  String     @db.ObjectId
+  department     department @relation(fields: [department_id], references: [id])
+  project_id     String     @db.ObjectId
+  project        project    @relation(fields: [project_id], references: [id])
+  consumed_hours Int
+}
+
+model pmo_document {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  document_url String
+  created_at   DateTime? @default(now())
+  updated_at   DateTime? @updatedAt
+}
+
+model notification {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  title        String?
+  message      String?
+  receiver_ids String
+  link         String?
+  read         Boolean   @default(false)
+  created_at   DateTime? @default(now())
+  created_by   String?   @db.ObjectId
+}
+
+model emp_attendance {
+  id               String        @id @default(auto()) @map("_id") @db.ObjectId
+  name             String?
+  emp_code         String?       @unique
+  user             user?         @relation(fields: [emp_code], references: [employement_code])
+  location_type_id Int
+  punch_time       DateTime?
+  punch_state      Int?
+  user_comment     String?
+  hours            String?
+  is_approved      leave_status? @default(PENDING)
+  approve_by       String?       @db.ObjectId
+  is_late          Boolean?      @default(false)
+  is_halfday       Boolean?      @default(false)
+  is_fullday       Boolean?      @default(false)
+  is_leave         Boolean?      @default(false)
+  leave_status     String?
+  created_at       DateTime?     @default(now())
+  updated_at       DateTime?     @updatedAt
+  created_by       String?       @db.ObjectId
+  updated_by       String?       @db.ObjectId
+  // user        user?
+
+  @@unique([emp_code, punch_time, punch_state])
+}
+
+model emp_activities {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  emp_code          String?   @unique
+  user              user?     @relation(fields: [emp_code], references: [employement_code])
+  keyboard_activity String
+  mouse_activity    String
+  created_at        DateTime? @default(now())
+  Key               String
+}
+
+model emp_attendance_Wfh {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  emp_code    String?   @unique
+  name        String?
+  punch_state Int?
+  hours       String?
+  punch_time  DateTime?
+  created_at  DateTime? @default(now())
+  date        String?
+}
+
+model emp_leaves {
+  id                String        @id @default(auto()) @map("_id") @db.ObjectId
+  applicationTypeId String
+  leaveTypeId       String?
+  reason_rejection  String?
+  approvedBy        String?       @db.ObjectId
+  leave_status      leave_status? @default(PENDING)
+  start_date        DateTime
+  end_date          DateTime
+  leave_count       Float?
+  is_halfday        Boolean?      @default(false)
+  work_from_home    Boolean?      @default(false)
+  employement_code  String
+  user              user?         @relation(fields: [employement_code], references: [employement_code])
+  resource_id       String?       @db.ObjectId
+  resource          resource?     @relation(fields: [resource_id], references: [id])
+  status            Boolean?      @default(true)
+  created_at        DateTime?     @default(now())
+  updated_at        DateTime?     @updatedAt
+}
+
+enum leave_status {
+  PENDING
+  REJECTED
+  APPROVED
+}
+
+model YearlyLeaveRecord {
+  id                    String                 @id @default(auto()) @map("_id") @db.ObjectId
+  user                  user                   @relation(fields: [user_id], references: [id])
+  user_id               String                 @unique @db.ObjectId
+  year                  Int
+  total_leaves          Float?                 @default(22) // Default to 22 yearly leaves
+  availed_leaves        Float?                 @default(0)
+  remaining_leaves      Float?                 @default(22)
+  availed_wfh           Float?                 @default(0)
+  maternity_leaves      Float?                 @default(0)
+  paternity_leaves      Float?                 @default(0)
+  maternity_wfh         Float?                 @default(60)
+  maternity_wfh_availed Float?                 @default(0)
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  monthly_records       monthly_leave_record[]
+}
+
+model monthly_leave_record {
+  id                  String            @id @default(auto()) @map("_id") @db.ObjectId
+  yearly_record_id    String            @db.ObjectId
+  yearly_leave_record YearlyLeaveRecord @relation(fields: [yearly_record_id], references: [id])
+  month               Int
+  late_count          Int?              @default(0)
+  deduction_leaves    Float?            @default(0)
+  deduction_late      Float?            @default(0)
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+}
+
+model user_details {
+  id                      String   @id @default(auto()) @map("_id") @db.ObjectId
+  user_id                 String   @unique @db.ObjectId
+  employment_status       String?
+  gender                  String?
+  date_of_birth           String?
+  date_of_joining         String?
+  CNIC                    String?
+  phone_number            String?
+  personal_email_address  String?
+  emergency_relation_name String?
+  emergency_contact       String?
+  address                 String?
+  account_title           String?
+  bank_name               String?
+  account_number          String?
+  ibn_number              String?
+  resign_comment          String?
+  location_type_id        Int
+  resignation_status      Boolean  @default(false)
+  marital_status          String?
+  maternity_provision     Boolean? @default(false)
+  number_dependents       Int?
+  family_details          Json?
+  job_status              Int?
+  user                    user     @relation(fields: [user_id], references: [id])
+}
+
+model user_docs {
+  id                    String   @id @default(auto()) @map("_id") @db.ObjectId
+  user_id               String   @unique @db.ObjectId
+  experience_letter     String?
+  resignation_letter    String?
+  educational_documents String[]
+  pay_slip              String?
+  cnic                  String?
+  updated_resume        String?
+  power_picture         String?
+  user                  user?    @relation(fields: [user_id], references: [id])
+}
+
+model pm_status {
+  id                    String   @id @default(auto()) @map("_id") @db.ObjectId
+  project_id            String   @unique @db.ObjectId
+  srs_signoff           DateTime
+  project_plan          String
+  project_status_report String
+  content               String
+  project               project  @relation(fields: [project_id], references: [id])
+}
+
+model asset_category {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  code       String
+  status     Boolean?  @default(true)
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+  asset      asset[]
+}
+
+model vendor {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  phone_number   Int?
+  email          String?
+  location       String
+  NTN            String?
+  CNIC           String
+  address        String
+  account_title  String
+  bank_name      String
+  account_number String?
+  ibn_number     String?
+  created_at     DateTime? @default(now())
+  updated_at     DateTime? @updatedAt
+  asset          asset[]
+}
+
+model asset {
+  id                  String           @id @default(auto()) @map("_id") @db.ObjectId
+  asset_number        Int
+  location            String
+  asset_category_id   String           @db.ObjectId
+  vendor_id           String           @db.ObjectId
+  cost                Int
+  approved_by         String
+  purchased_date      DateTime
+  warranty_expiration DateTime
+  brand               String
+  model_number        String
+  invoice             String
+  invoice2            String?
+  assigned            Boolean?         @default(false)
+  assigned_confirmed  Boolean?         @default(false)
+  specification       Json
+  created_at          DateTime?        @default(now())
+  updated_at          DateTime?        @updatedAt
+  vendor              vendor           @relation(fields: [vendor_id], references: [id])
+  asset_category      asset_category   @relation(fields: [asset_category_id], references: [id])
+  assigned_asset      assigned_asset[]
+  asset_complaint     asset_complaint?
+}
+
+model assigned_asset {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  user_id    String    @db.ObjectId
+  asset_id   String    @unique @db.ObjectId
+  asset      asset     @relation(fields: [asset_id], references: [id])
+  user       user      @relation(fields: [user_id], references: [id])
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+}
+
+model asset_complaint {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  asset_id          String    @unique @db.ObjectId
+  user_id           String    @db.ObjectId
+  description       String
+  admin_resolved    Boolean?  @default(false)
+  employee_resolved Boolean?  @default(false)
+  asset             asset     @relation(fields: [asset_id], references: [id])
+  user              user      @relation(fields: [user_id], references: [id])
+  resolved_date     DateTime?
+  created_at        DateTime? @default(now())
+  updated_at        DateTime? @updatedAt
+}
+
+model hr_policy {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  document_url String
+  created_at   DateTime? @default(now())
+  updated_at   DateTime? @updatedAt
+  is_active    Boolean   @default(true)
+}
+
+model holidays {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  title      String
+  date       DateTime
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+}
+
+enum approved_status {
+  PENDING
+  REJECTED
+  APPROVED
+}
+
+model extra_hours {
+  id          String          @id @default(auto()) @map("_id") @db.ObjectId
+  date        DateTime
+  hours       String
+  emp_code    String
+  reason      String
+  start_time  DateTime
+  end_time    DateTime
+  is_approved approved_status @default(PENDING)
+  user        user?           @relation(fields: [emp_code], references: [employement_code])
+  created_at  DateTime?       @default(now())
+  updated_at  DateTime?       @updatedAt
+}
+
+model events {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  working_hours Int
+  start_date    DateTime
+  end_date      DateTime
+  created_at    DateTime? @default(now())
+  updated_at    DateTime? @updatedAt
+}
+
+model CronJob {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  runDate    DateTime
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+}
+
+model ScreenShotApps {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  UserApps   UserApps[]
+  created_at DateTime?  @default(now())
+  updated_at DateTime?  @updatedAt
+}
+
+model UserApps {
+  id               String          @id @default(auto()) @map("_id") @db.ObjectId
+  ScreenShotAppsId String          @db.ObjectId
+  emp_code         String          @unique
+  ScreenShotApps   ScreenShotApps? @relation(fields: [ScreenShotAppsId], references: [id])
+  user             user?           @relation(fields: [emp_code], references: [employement_code])
+  created_at       DateTime?       @default(now())
+  updated_at       DateTime?       @updatedAt
+}
+
+model JobFair {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  fullName        String
+  email           String
+  phone           String
+  fieldofInterest String
+  highestDegree   String
+  jobFairLocation String
+  created_at      DateTime? @default(now())
+}
+
+model payslip {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  user_id     String    @db.ObjectId
+  month       Int
+  year        String
+  file_path   String
+  uploaded_by String    @db.ObjectId
+  created_at  DateTime? @default(now())
+  updated_at  DateTime? @updatedAt
+  user        user?     @relation(fields: [user_id], references: [id])
+}
+
+model resignation {
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  user_id         String            @db.ObjectId
+  reason          String
+  resignationDate DateTime
+  status          ResignationStatus @default(Pending)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  // Relation to user_details
+  user user @relation(fields: [user_id], references: [id])
+}
+
+model AttendanceWarningsSent {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  user_id    String    @db.ObjectId
+  type       String // 'Late', 'HalfDay', or 'FullDay'
+  count      Int // Number of consecutive days
+  sent_date  DateTime  @default(now())
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+  user       user?     @relation(fields: [user_id], references: [id])
+}
+
+model ProjectDivision {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  status      String    @default("Active")
+  createdDate DateTime  @default(now())
+  updatedDate DateTime  @updatedAt
+  projects    project[] @relation("DivisionProjects")
+  color       String?
+
+  parentId String?           @db.ObjectId
+  parent   ProjectDivision?  @relation("DivisionParent", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  children ProjectDivision[] @relation("DivisionParent")
+
+  @@map("ProjectDivisions")
+}
+
+model project_contract_type {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  status      String    @default("Active")
+  createdDate DateTime  @default(now())
+  updatedDate DateTime  @updatedAt
+  projects    project[] @relation("project_contract_type")
+  color       String?
+}
+
+enum ResignationStatus {
+  Pending
+  Approved
+  Rejected
+}
+
+model production_capacity {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  projectId    String     @db.ObjectId
+  project      project    @relation(fields: [projectId], references: [id])
+  departmentId String     @db.ObjectId
+  department   department @relation(fields: [departmentId], references: [id])
+  monthKey     String // Format: "YYYY-MM" (e.g., "2025-08")
+  hours        Int // Allocated hours for this month/department/project
+  createdAt    DateTime?  @default(now())
+  updatedAt    DateTime?  @updatedAt
+  status       Boolean?   @default(true)
+
+  @@map("production_capacity")
+}

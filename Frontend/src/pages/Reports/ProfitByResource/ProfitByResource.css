@@ -1,0 +1,79 @@
+/* Table container */
+.tableContainer {
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    min-height: 800px;
+    overflow-x: auto;
+}
+
+.tableContainer table {
+    min-width: 1200px;
+}
+
+/* Header row */
+.tableHeader .MuiTableCell-root {
+    background-color: #6a1b9a !important;
+    color: #fff !important;
+    font-weight: bold;
+    padding: 24px 10px !important; /* taller header */
+}
+
+/* Sub-header row */
+.subHeader .MuiTableCell-root {
+    background-color: #6a1b9a !important;
+    color: #fff !important;
+    font-weight: bold;
+    padding: 20px 10px !important;
+}
+
+/* Body rows */
+.tableCell {
+    border: 1px solid #ccc;
+    padding: 18px 10px; /* taller rows */
+}
+
+.tableBodyRow:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.tableBodyRow:nth-child(even) {
+    background-color: #ffffff;
+}
+
+.tableBodyRow:hover {
+    background-color: #e0f7fa;
+    transition: 0.2s;
+}
+
+/* Totals / Proposed / PnL rows */
+.totalRow,
+.proposedRow,
+.pnlRow {
+    font-weight: bold;
+    padding: 18px 10px !important;
+}
+
+.totalRow {
+    background-color: #ede7f6;
+}
+
+.proposedRow {
+    background-color: #f3e5f5;
+}
+
+.pnlRow {
+    background-color: #e1bee7;
+}
+
+/* Filters */
+.filtersContainer {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+/* Pagination */
+.MuiTablePagination-root {
+    padding: 10px;
+}

@@ -1,0 +1,59 @@
+.InovuaReactDataGrid__sort-icon--desc {
+    display: none !important;
+}
+
+.custom__grid .InovuaReactDataGrid__cell__content {
+    font-size: 12px !important;
+}
+
+.custom__grid .InovuaReactDataGrid__sort-icon-wrapper {
+    display: none !important;
+}
+
+/* .custom__grid .active-row-border {
+    border-color: transparent !important;
+}
+
+.custom__grid .custom-focus-row {
+    background-color: transparent !important;
+    
+} */
+
+.custom__grid .InovuaReactDataGrid--theme-default-light,
+.custom__grid .InovuaReactDataGrid__column-header__filter-settings {
+    display: none !important;
+}
+
+.custom__grid .InovuaReactDataGrid__column-header__filter-wrapper {
+    padding: 15px !important;
+}
+
+.custom__grid .inovua-react-toolkit-text-input {
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    border: none !important;
+}
+
+.custom__grid .InovuaReactDataGrid--theme-default-light,
+.custom__grid .InovuaReactDataGrid__column-header--sortable {
+    background-color: #6e529e !important;
+    color: #fff !important;
+    min-height: 40px;
+    font-size: 13px;
+}
+
+.InovuaReactDataGrid--theme-default-light .InovuaReactDataGrid__cell--show-border-left,
+.InovuaReactDataGrid--theme-default-light .InovuaReactDataGrid__footer-row-cell--show-border-left,
+.InovuaReactDataGrid--theme-default-light .InovuaReactDataGrid__locked-row-cell--show-border-left {
+    border-left: 1px solid rgba(228, 227, 226, 0.5);
+}
+
+/* Example with increased specificity */
+.react-grid .InovuaReactDataGrid__row-cell-wrap {
+    border: none !important;
+}
+
+.react-grid .InovuaReactDataGrid__row-hover-target {
+    background-color: transparent !important;
+    border: none !important;
+}
