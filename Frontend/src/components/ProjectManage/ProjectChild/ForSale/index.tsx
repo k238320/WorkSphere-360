@@ -32,8 +32,6 @@ import { ClientDetailComponentForSale } from './ClientDetails';
 import { GetAllProjectDivisions } from 'services/project-divisions';
 import { GetAllProjectContractTypes } from 'services/project-contract-types';
 
-// ================================|| Sales Component ||================================ //
-
 export function SalesComponent(props: any) {
     const dispatch = useDispatch();
     const { apiData, refreshData, projectId } = props;
@@ -322,34 +320,36 @@ export function SalesComponent(props: any) {
             project_contract_type_id: data?.project_contract_type_id ?? null
         };
 
-        dispatch(spinLoaderShow(true));
+        console.log('project data', body);
 
-        if (projectId) {
-            body.project_id = projectId;
-            updateForSale(body)
-                .then((res) => {
-                    toast.success('Project Updated Successfully');
-                    GetForSale();
-                    dispatch(spinLoaderShow(false));
-                })
-                .catch((err) => {
-                    dispatch(spinLoaderShow(false));
-                    console.log('err', err);
-                });
-        } else {
-            createProjects(body)
-                .then((res: any) => {
-                    if (res?.id) {
-                        toast.success('Project Created Successfully');
-                    }
-                    navigate('/project/listing');
-                    dispatch(spinLoaderShow(false));
-                })
-                .catch((err) => {
-                    toast.error(err);
-                    dispatch(spinLoaderShow(false));
-                });
-        }
+        // dispatch(spinLoaderShow(true));
+
+        // if (projectId) {
+        //     body.project_id = projectId;
+        //     updateForSale(body)
+        //         .then((res) => {
+        //             toast.success('Project Updated Successfully');
+        //             GetForSale();
+        //             dispatch(spinLoaderShow(false));
+        //         })
+        //         .catch((err) => {
+        //             dispatch(spinLoaderShow(false));
+        //             console.log('err', err);
+        //         });
+        // } else {
+        //     createProjects(body)
+        //         .then((res: any) => {
+        //             if (res?.id) {
+        //                 toast.success('Project Created Successfully');
+        //             }
+        //             navigate('/project/listing');
+        //             dispatch(spinLoaderShow(false));
+        //         })
+        //         .catch((err) => {
+        //             toast.error(err);
+        //             dispatch(spinLoaderShow(false));
+        //         });
+        // }
     };
 
     // ================================|| Singed Document HandleSave ||================================ //
@@ -571,8 +571,6 @@ export function SalesComponent(props: any) {
                                 valueGot={selectedCategory}
                             />
                         </Grid>
-
-                        
 
                         <Grid item xs={3} md={6} sm={3}>
                             <AutoCompleteMultipleField
