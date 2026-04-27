@@ -26,14 +26,15 @@ const Allocation = {
             url: '/allocation/create',
             icon: icons.IconCirclePlus
             // icon: AddTaskIcon
-        },
-        {
-            id: 'allocation-listing',
-            title: <FormattedMessage id="List of Tasks" />,
-            type: 'item',
-            url: '/allocation/listing',
-            icon: icons.IconList
         }
+        // ,
+        // {
+        //     id: 'allocation-listing',
+        //     title: <FormattedMessage id="List of Tasks" />,
+        //     type: 'item',
+        //     url: '/allocation/listing',
+        //     icon: icons.IconList
+        // }
     ]
 };
 

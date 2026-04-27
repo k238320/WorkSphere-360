@@ -68,10 +68,10 @@ const employeeInfo = {
 };
 employeeInfo.children = [];
 
-// const allocation = {
-//     ...Allocation
-// };
-// allocation.children = [];
+const allocation = {
+    ...Allocation
+};
+allocation.children = [];
 
 const resources = {
     ...Resources
@@ -202,7 +202,7 @@ if (user?.super) {
         Calendar,
         // Reports,
         Project,
-        // Allocation,
+        Allocation,
         Attendance,
         // ProductionCapacity,
         // Finance,
@@ -258,16 +258,16 @@ if (user?.super) {
             //     items.push(reports);
             //     break;
 
-            // case 'Allocation':
-            //     ele?.routes?.map((x: any) => {
-            //         const find = Allocation?.children?.find((y: any) => y?.url == x?.route);
-            //         if (find) {
-            //             allocation.children?.push(find);
-            //         }
-            //     });
+            case 'Allocation':
+                ele?.routes?.map((x: any) => {
+                    const find = Allocation?.children?.find((y: any) => y?.url == x?.route);
+                    if (find) {
+                        allocation.children?.push(find);
+                    }
+                });
 
-            //     items.push(allocation);
-            //     break;
+                items.push(allocation);
+                break;
 
             case 'Finance':
                 ele?.routes?.map((x: any) => {

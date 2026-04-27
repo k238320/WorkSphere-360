@@ -154,8 +154,8 @@ export function AllocationManage(props: any) {
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <Tabs value={valuetab} onChange={handleChange} aria-label="basic tabs example">
                             <Tab label="Task detail" {...a11yProps(0)} />
-                            <Tab label="Comment" {...a11yProps(1)} />
-                            <Tab label="allocation" {...a11yProps(2)} />
+                            {/* <Tab label="Comment" {...a11yProps(1)} />
+                            <Tab label="allocation" {...a11yProps(2)} /> */}
                         </Tabs>
                     </Box>
                     <CustomTabPanel value={valuetab} index={0}>

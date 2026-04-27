@@ -260,7 +260,7 @@ const TaskDetailTab = ({
                                     optionKey="id"
                                     optionValue="name"
                                     iProps={{
-                                        onChange: onChangeProject,
+                                        onChange: onChangeProject
                                         // disabled: apiData ? true : false
                                     }}
                                     helperText={errors?.project_id && errors?.project_id?.message}
@@ -411,7 +411,7 @@ const TaskDetailTab = ({
                                                     type="submit"
                                                     sx={{ m: 3 }}
                                                     className={'red'}
-                                                    onClick={handleSubmit(onSubmit)}
+                                                    // onClick={handleSubmit(onSubmit)}
                                                     // disabled={apiData ? true : false}
                                                 >
                                                     save
